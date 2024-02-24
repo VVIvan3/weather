@@ -16,15 +16,37 @@ class PageRenderer {
     const todayIcon = document.querySelector(".todayicon");
     const todayTemp = document.querySelector(".todaytemp");
     const todayFeelsLike = document.querySelector(".todayfeels");
-    const test = document.querySelector(".test");
     todayIcon.src = data.condition.icon;
     todayCondition.textContent = data.condition.text;
     todayTemp.textContent = data.temp_c;
     todayFeelsLike.textContent = data.feelslike_c;
   }
+  static async renderForecast() {
+    const data = await DataManager.getForecastData();
+    for (let i = 0; i < data.length; i++) {
+      const selectedData = data[i]
+      const forecastTitle = document.querySelector(
+        `.forecasttitle#f-${i + 1}`
+      );
+      const forecastIcon = document.querySelector(
+        `.forecasticon#f-${i + 1}`
+      );
+      const forecastCondition = document.querySelector(
+        `.forecastcondition#f-${i + 1}`
+      );
+      const forecastTemp = document.querySelector(
+        `.forecasttemp#f-${i + 1}`
+      );
+      forecastTitle.textContent = selectedData.date.split('-')[2]
+      forecastIcon.src = selectedData.day.condition.icon
+      forecastCondition.textContent = selectedData.day.condition.text
+      forecastTemp.textContent = selectedData.day.avgtemp_c
+    }
+  }
   static renderAll() {
     PageRenderer.renderGreeterTitle();
     PageRenderer.renderToday();
+    PageRenderer.renderForecast();
   }
 }
 
@@ -38,6 +60,13 @@ class DataManager {
     );
     const temperatureData = await currentData.current;
     return temperatureData;
+  }
+  static async getForecastData() {
+    const currentData = await WeatherAPI.getCurrentData(
+      LocalStorageManager.getCity()
+    );
+    const forecastedArray = await currentData.forecast.forecastday.slice(1);
+    return forecastedArray;
   }
 }
 

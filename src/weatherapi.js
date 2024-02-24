@@ -4,7 +4,7 @@ class WeatherAPI {
   static async getCurrentData(location) {
     try {
       const response = await fetch(
-        `https://api.weatherapi.com/v1/current.json?key=${APIKEY}&q=${location}`,
+        `https://api.weatherapi.com/v1/forecast.json?key=${APIKEY}&days=3&q=${location}`,
         { mode: "cors" }
       );
       const data = await response.json();
