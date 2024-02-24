@@ -8,16 +8,36 @@ let APIKEY;
 class PageRenderer {
   static renderGreeterTitle() {
     const currentCity = document.querySelector(".city");
-    currentCity.textContent = LocalStorageManager.getCity(); // change than to location.name
+    currentCity.textContent = LocalStorageManager.getCity();
+  }
+  static async renderToday() {
+    const data = await DataManager.getTodayWeatherData();
+    const todayCondition = document.querySelector(".todaycondition");
+    const todayIcon = document.querySelector(".todayicon");
+    const todayTemp = document.querySelector(".todaytemp");
+    const todayFeelsLike = document.querySelector(".todayfeels");
+    const test = document.querySelector(".test");
+    todayIcon.src = data.condition.icon;
+    todayCondition.textContent = data.condition.text;
+    todayTemp.textContent = data.temp_c;
+    todayFeelsLike.textContent = data.feelslike_c;
   }
   static renderAll() {
     PageRenderer.renderGreeterTitle();
+    PageRenderer.renderToday();
   }
 }
 
 class DataManager {
   static restoreGlobalKey() {
     APIKEY = LocalStorageManager.getKey();
+  }
+  static async getTodayWeatherData() {
+    const currentData = await WeatherAPI.getCurrentData(
+      LocalStorageManager.getCity()
+    );
+    const temperatureData = await currentData.current;
+    return temperatureData;
   }
 }
 
@@ -44,15 +64,14 @@ const pageLoad = (() => {
 
   setCityBtn.addEventListener("click", async () => {
     const cityInput = document.querySelector(".cityinput");
-    const errorMessage = document.querySelector('.error');
+    const errorMessage = document.querySelector(".error");
     const currentData = await WeatherAPI.getCurrentData(cityInput.value);
     if (currentData.error) {
-      errorMessage.classList.add('active')
+      errorMessage.classList.add("active");
       return;
     }
-    errorMessage.classList.remove('active')
+    errorMessage.classList.remove("active");
     LocalStorageManager.setCity(currentData.location.name);
-    // CALL, RENDER CITY NAME, AND VALUES THEN
     PageRenderer.renderAll();
   });
 })();
