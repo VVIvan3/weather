@@ -116,7 +116,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _keyget__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./keyget */ \"./src/keyget.js\");\n/* harmony import */ var _localstorage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./localstorage */ \"./src/localstorage.js\");\n\n\n\n\nlet APIKEY;\n\nclass DataManager {\n  static restoreGlobalKey() {\n    APIKEY = _localstorage__WEBPACK_IMPORTED_MODULE_2__.LocalStorageManager.getKey();\n  }\n}\n\nconst pageLoad = (() => {\n  const keyDialogue = document.querySelector(\"dialog\");\n  const keyInputBtn = document.querySelector(\".submitkey\");\n\n  window.addEventListener(\"DOMContentLoaded\", () => {\n    DataManager.restoreGlobalKey();\n    if (APIKEY == null) {\n      keyDialogue.showModal();\n    }\n  });\n\n  keyInputBtn.addEventListener(\"click\", () => {\n    APIKEY = _keyget__WEBPACK_IMPORTED_MODULE_1__.KeyController.getKey();\n    _localstorage__WEBPACK_IMPORTED_MODULE_2__.LocalStorageManager.setKey(APIKEY);\n    keyDialogue.close();\n  });\n})();\n\n\n//# sourceURL=webpack://weather/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   APIKEY: () => (/* binding */ APIKEY)\n/* harmony export */ });\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _keyget__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./keyget */ \"./src/keyget.js\");\n/* harmony import */ var _localstorage__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./localstorage */ \"./src/localstorage.js\");\n/* harmony import */ var _weatherapi__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./weatherapi */ \"./src/weatherapi.js\");\n\n\n\n\n\nlet APIKEY;\n\nclass PageRenderer {\n  static renderGreeterTitle() {\n    const currentCity = document.querySelector(\".city\");\n    currentCity.textContent = _localstorage__WEBPACK_IMPORTED_MODULE_2__.LocalStorageManager.getCity(); // change than to location.name\n  }\n  static renderAll() {\n    PageRenderer.renderGreeterTitle();\n  }\n}\n\nclass DataManager {\n  static restoreGlobalKey() {\n    APIKEY = _localstorage__WEBPACK_IMPORTED_MODULE_2__.LocalStorageManager.getKey();\n  }\n}\n\nconst pageLoad = (() => {\n  const keyDialogue = document.querySelector(\"dialog\");\n  const keyInputBtn = document.querySelector(\".submitkey\");\n  const setCityBtn = document.querySelector(\".citysearch\");\n  window.addEventListener(\"DOMContentLoaded\", () => {\n    DataManager.restoreGlobalKey();\n    if (APIKEY == null) {\n      keyDialogue.showModal();\n    }\n    if (_localstorage__WEBPACK_IMPORTED_MODULE_2__.LocalStorageManager.getCity() == null) {\n      _localstorage__WEBPACK_IMPORTED_MODULE_2__.LocalStorageManager.setCity();\n    }\n    PageRenderer.renderAll();\n  });\n\n  keyInputBtn.addEventListener(\"click\", () => {\n    APIKEY = _keyget__WEBPACK_IMPORTED_MODULE_1__.KeyController.getKey();\n    _localstorage__WEBPACK_IMPORTED_MODULE_2__.LocalStorageManager.setKey(APIKEY);\n    keyDialogue.close();\n  });\n\n  setCityBtn.addEventListener(\"click\", () => {\n    const cityInput = document.querySelector(\".cityinput\").value;\n    console.log(cityInput)\n  });\n})();\n\n\n\n//# sourceURL=webpack://weather/./src/index.js?");
 
 /***/ }),
 
@@ -126,7 +126,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
   \***********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   KeyController: () => (/* binding */ KeyController)\n/* harmony export */ });\nclass KeyController {\n  static getKey() {\n    const keyInput = document.querySelector('#key');\n    return keyInput.value;\n  }\n}\n\n\n\n//# sourceURL=webpack://weather/./src/keyget.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   KeyController: () => (/* binding */ KeyController)\n/* harmony export */ });\nclass KeyController {\n  static getKey() {\n    const keyInput = document.querySelector(\"#key\");\n    return keyInput.value;\n  }\n}\n\n\n\n\n//# sourceURL=webpack://weather/./src/keyget.js?");
 
 /***/ }),
 
@@ -136,7 +136,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   LocalStorageManager: () => (/* binding */ LocalStorageManager)\n/* harmony export */ });\nclass LocalStorageManager {\n  static setKey(key) {\n    localStorage.setItem(\"APIKEY\", JSON.stringify(key))\n  }\n  static getKey() {\n    return JSON.parse(localStorage.getItem(\"APIKEY\"))\n  }\n}\n\n\n\n//# sourceURL=webpack://weather/./src/localstorage.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   LocalStorageManager: () => (/* binding */ LocalStorageManager)\n/* harmony export */ });\nclass LocalStorageManager {\n  static setKey(key) {\n    localStorage.setItem(\"APIKEY\", JSON.stringify(key));\n  }\n  static getKey() {\n    return JSON.parse(localStorage.getItem(\"APIKEY\"));\n  }\n  static setCity(city = \"nizhny-novgorod\") {\n    localStorage.setItem(\"city\", JSON.stringify(city));\n  }\n  static getCity() {\n    return JSON.parse(localStorage.getItem(\"city\"));\n  }\n}\n\n\n\n\n//# sourceURL=webpack://weather/./src/localstorage.js?");
+
+/***/ }),
+
+/***/ "./src/weatherapi.js":
+/*!***************************!*\
+  !*** ./src/weatherapi.js ***!
+  \***************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   WeatherAPI: () => (/* binding */ WeatherAPI)\n/* harmony export */ });\n/* harmony import */ var ___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! . */ \"./src/index.js\");\n\n\nclass WeatherAPI {\n  static async getCurrentTemp(location) {\n    const response = await fetch(\n      `https://api.weatherapi.com/v1/current.json?key=${___WEBPACK_IMPORTED_MODULE_0__.APIKEY}&q=${location}`,\n      { mode: \"cors\" }\n    );\n    console.log(response);\n  }\n}\n\n\n\n\n//# sourceURL=webpack://weather/./src/weatherapi.js?");
 
 /***/ })
 
@@ -216,7 +226,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
 /******/ 	var __webpack_exports__ = __webpack_require__("./src/index.js");
 /******/ 	
 /******/ })()
