@@ -7,3 +7,12 @@
 dialog {
   margin: auto;
 }
+
+.error {
+  visibility: hidden;
+  color: red;
+}
+
+.error.active {
+  visibility: visible;
+}

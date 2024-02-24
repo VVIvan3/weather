@@ -44,13 +44,16 @@ const pageLoad = (() => {
 
   setCityBtn.addEventListener("click", async () => {
     const cityInput = document.querySelector(".cityinput");
+    const errorMessage = document.querySelector('.error');
     const currentData = await WeatherAPI.getCurrentData(cityInput.value);
     if (currentData.error) {
-      //ADD SHOWING THAT THIS DOES NOT EXIST
-      return
+      errorMessage.classList.add('active')
+      return;
     }
-    console.log(currentData)
+    errorMessage.classList.remove('active')
+    LocalStorageManager.setCity(currentData.location.name);
     // CALL, RENDER CITY NAME, AND VALUES THEN
+    PageRenderer.renderAll();
   });
 })();
 
