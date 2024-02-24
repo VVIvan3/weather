@@ -42,10 +42,16 @@ const pageLoad = (() => {
     keyDialogue.close();
   });
 
-  setCityBtn.addEventListener("click", () => {
-    const cityInputValue = document.querySelector(".cityinput").value;
-    // CONNECT TO API
+  setCityBtn.addEventListener("click", async () => {
+    const cityInput = document.querySelector(".cityinput");
+    const currentData = await WeatherAPI.getCurrentData(cityInput.value);
+    if (currentData.error) {
+      //ADD SHOWING THAT THIS DOES NOT EXIST
+      return
+    }
+    console.log(currentData)
+    // CALL, RENDER CITY NAME, AND VALUES THEN
   });
 })();
 
-export { APIKEY }
+export { APIKEY };
