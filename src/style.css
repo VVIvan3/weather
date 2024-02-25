@@ -4,8 +4,15 @@
   box-sizing: border-box;
 }
 
+body {
+  background: radial-gradient(ellipse at center, #1C6EA4 0%, #2388CB 100%, #144E75 100%);
+  display: grid;
+}
+
 dialog {
+  padding: 1rem;
   margin: auto;
+  text-align: center;
 }
 
 .error {
@@ -15,4 +22,100 @@ dialog {
 
 .error.active {
   visibility: visible;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 3fr;
+}
+
+.greeter {
+  display: grid;
+  background-color: rgba(228, 237, 245, 70%);
+  margin-bottom: 2rem;
+  justify-items: center;
+}
+
+.weathermain {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  justify-items: center;
+}
+
+.forecastmain {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.forecast {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: whitesmoke;
+  padding: 0.15rem;
+  border-radius: 15px 5px;
+}
+
+.forecaststats {
+  grid-column: 1 / -1;
+}
+
+.today {
+  background-color: rgb(241, 236, 236);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 0.25rem 1.5rem;
+  border-radius: 5px 15px;
+}
+
+.todaystats {
+  grid-column: 1 / -1;
+}
+
+img {
+  justify-self: end;
+}
+
+h1, img {
+  align-self: center;
+}
+
+.cityinput,
+.citysearch {
+  border: none;
+  max-width: 25rem;
+  min-width: 15rem;
+}
+
+.cityinput {
+  padding: 0.25rem;
+}
+
+.citysearch {
+  padding: 0.15rem;
+}
+
+.citysearch:hover {
+  background-color: #af93f0;
+}
+
+.citysearch:active {
+  background-color: #4c00ff;
+}
+
+.greeter > h1 {
+  color: #240372;
+  text-align: center;
+}
+
+@media only screen and (min-width: 500px) {
+  .wrapper {
+    justify-self: center;
+    width: 500px;
+    height: 100vh;
+    border: solid rgb(25, 75, 122) 5px;
+    padding: 1rem;
+  }
 }

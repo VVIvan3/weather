@@ -5,7 +5,7 @@ class LocalStorageManager {
   static getKey() {
     return JSON.parse(localStorage.getItem("APIKEY"));
   }
-  static setCity(city = "nizhny-novgorod") {
+  static setCity(city = "Nizhny Novgorod") {
     localStorage.setItem("city", JSON.stringify(city));
   }
   static getCity() {

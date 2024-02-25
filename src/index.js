@@ -89,6 +89,7 @@ const pageLoad = (() => {
     APIKEY = KeyController.getKey();
     LocalStorageManager.setKey(APIKEY);
     keyDialogue.close();
+    PageRenderer.renderAll();
   });
 
   setCityBtn.addEventListener("click", async () => {
